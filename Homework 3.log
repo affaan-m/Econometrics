@@ -1,0 +1,36 @@
+-------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/affoon/Stata Data/Homework 3.log
+  log type:  text
+ opened on:  30 Jan 2023, 18:20:15
+
+.  use "/Users/affoon/Stata Data/CPS96_15.dta"
+no; dataset in memory has changed since last saved
+r(4);
+
+. drop mean_ahe_1996
+
+.  use "/Users/affoon/Stata Data/CPS96_15.dta"
+no; dataset in memory has changed since last saved
+r(4);
+
+.  use "CPS96_15.dta"
+no; dataset in memory has changed since last saved
+r(4);
+
+. egen mean_ahe_1996 = mean(ahe) if ahe==1996
+(13,201 missing values generated)
+
+. display mean_ahe_1996
+.
+
+. egen mean_ahe_2015 = mean(ahe) if ahe==2015
+(13,201 missing values generated)
+
+. egen sd_ahe_1996 = sd(ahe) if ahe==1996
+(13,201 missing values generated)
+
+. egen sd_ahe_2015 = sd(ahe) if ahe==2015
+(13,201 missing values generated)
+
+. exit, clear

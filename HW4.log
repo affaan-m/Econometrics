@@ -1,0 +1,707 @@
+-------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/affoon/Stata Data/HW4.log
+  log type:  text
+ opened on:   4 Feb 2023, 03:49:52
+
+. graph scatter growth tradeshare, xlabel(Growth) ylabel(Tradeshare)
+scattergraph_g.new growth tradeshare, xlabel(Growth) ylabel(Tradeshare): class member function not found
+r(4023);
+
+. scatter growth tradeshare, xlabel(Growth) ylabel(Tradeshare)
+invalid label specifier, :  Growth:
+r(198);
+
+. scatter growth tradeshare, xlabel("Growth") ylabel("Tradeshare")
+invalid label specifier, :  "Growth":
+r(198);
+
+. scatter growth tradeshare, xlabel("growth") ylabel("tradeshare")
+invalid label specifier, :  "growth":
+r(198);
+
+. use "Growth.dta"
+
+. scatter growth tradeshare, xlabel("growth") ylabel("tradeshare")
+invalid label specifier, :  "growth":
+r(198);
+
+. scatter growth tradeshare, xlabel("Growth") ylabel("Tradeshare")
+invalid label specifier, :  "Growth":
+r(198);
+
+. 
+. display growth
+1.9151679
+
+. sum growth
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      growth |         65    1.942715     1.89712  -2.811944   7.156855
+
+. display tradeshare
+.14050198
+
+. sum tradeshare detail
+variable detail not found
+r(111);
+
+. sum tradeshare, detail
+
+                         tradeshare
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%      .140502        .140502
+ 5%     .1604051        .156623
+10%     .2994059       .1577032       Obs                  65
+25%     .3932509       .1604051       Sum of wgt.          65
+
+50%     .5433371                      Mean            .564703
+                        Largest       Std. dev.      .2892703
+75%     .6815552       1.105364
+90%     .8302383       1.115917       Variance       .0836773
+95%     1.105364       1.127937       Skewness       1.996913
+99%     1.992616       1.992616       Kurtosis        10.6097
+
+. scatter tradeshare growth
+
+. scatter growth tradeshare
+
+. scatter growth tradeshare country_name
+string variables not allowed in varlist;
+country_name is a string variable
+r(109);
+
+. scatter growth tradeshare, msize(small) mcolor(red) text(country_name)
+invalid point,  country_name
+r(198);
+
+. scatter growth tradeshare, msize(small) mcolor(red) text(country_name, size(10))
+invalid point,  country_name
+r(198);
+
+. 
+. list country_name
+
+     +---------------------+
+     |        country_name |
+     |---------------------|
+  1. |               India |
+  2. |           Argentina |
+  3. |               Japan |
+  4. |              Brazil |
+  5. |       United States |
+     |---------------------|
+  6. |          Bangladesh |
+  7. |               Spain |
+  8. |            Colombia |
+  9. |                Peru |
+ 10. |               Haiti |
+     |---------------------|
+ 11. |           Australia |
+ 12. |               Italy |
+ 13. |              Greece |
+ 14. |              France |
+ 15. |               Zaire |
+     |---------------------|
+ 16. |             Uruguay |
+ 17. |              Mexico |
+ 18. |            Pakistan |
+ 19. |               Niger |
+ 20. |             Bolivia |
+     |---------------------|
+ 21. |             Germany |
+ 22. |              Canada |
+ 23. |      United Kingdom |
+ 24. |         New Zealand |
+ 25. |         Philippines |
+     |---------------------|
+ 26. |             Finland |
+ 27. |           Venezuela |
+ 28. |  Korea, Republic of |
+ 29. |           Guatemala |
+ 30. |            Honduras |
+     |---------------------|
+ 31. |         El Salvador |
+ 32. |               Chile |
+ 33. |            Thailand |
+ 34. |              Sweden |
+ 35. |             Senegal |
+     |---------------------|
+ 36. | Trinidad and Tobago |
+ 37. |             Ecuador |
+ 38. |             Denmark |
+ 39. |         Switzerland |
+ 40. |             Austria |
+     |---------------------|
+ 41. |            Zimbabwe |
+ 42. |            Paraguay |
+ 43. |          Costa Rica |
+ 44. |            Portugal |
+ 45. |                Togo |
+     |---------------------|
+ 46. |             Iceland |
+ 47. |              Israel |
+ 48. |        South Africa |
+ 49. |              Norway |
+ 50. |        Sierra Leone |
+     |---------------------|
+ 51. |  Dominican Republic |
+ 52. |               Ghana |
+ 53. |           Sri Lanka |
+ 54. |       Taiwan, China |
+ 55. |              Panama |
+     |---------------------|
+ 56. |    Papua New Guinea |
+ 57. |               Kenya |
+ 58. |             Ireland |
+ 59. |             Jamaica |
+ 60. |         Netherlands |
+     |---------------------|
+ 61. |              Cyprus |
+ 62. |            Malaysia |
+ 63. |             Belgium |
+ 64. |           Mauritius |
+ 65. |               Malta |
+     +---------------------+
+
+. scatter growth tradeshare, msize(small) mcolor(red) label(country_name, size(10))
+option label() not allowed
+r(198);
+
+. 
+. scatter growth tradeshare, msize(small) mcolor(red) text(country_name, size(10))
+invalid point,  country_name
+r(198);
+
+. 
+. gen text_x = growth
+
+. gen text_y = tradeshare
+
+. scatter growth tradeshare, msize(small) mcolor(red) text(country_name, x=text_x y=text_y, size(10))
+invalid 'size' 
+r(198);
+
+. 
+. scatter growth tradeshare, msize(small) mcolor(red) text(country_name, x=text_x y=text_y, fontsize(10))
+invalid 'fontsize' 
+r(198);
+
+. 
+. scatter growth tradeshare, msize(small) mcolor(red) text(country_name, x=text_x y=text_y, rotate(10))
+invalid 'rotate' 
+r(198);
+
+. 
+. twoway (scatter growth tradeshare, msize(small) mcolor(red)) (lfit growth tradeshare), ylabel(Tradeshare) xlabel(Growth) || label(country
+> _name)
+label(country_name) is not a twoway plot type
+r(198);
+
+. 
+. twoway scatter growth tradeshare, labelvar(country_name)
+option labelvar() not allowed
+r(198);
+
+. 
+. scatter growth tradeshare, msize(small) mcolor(red)
+
+. 
+. foreach i of numlist 1/65 {
+  2.     label define mylabels `i' "`country_name[`i']'"
+  3. }
+label mylabels already defined
+r(110);
+
+. 
+. foreach i of numlist 1/65 {
+  2.     note `i' `growth[`i']' `tradeshare[`i']' "`: mylabels `i''}
+  3. scatter growth tradeshare, msize(small) mcolor(red)
+  4. text(growth tradeshare, country_name, size(10))
+  5. 
+. scatter growth tradeshare, msize(small) mcolor(red)
+  6. text(growth tradeshare, country_name, size(10))
+  7. 
+. scatter growth tradeshare, msize(small) mcolor(red)
+  8. text(growth tradeshare, country_name, size(10))
+  9. 
+. end
+--Break--
+r(1);
+
+. scatter growth tradeshare, msize(small) mcolor(red)
+
+. text(growth tradeshare, country_name, size(10))
+command text is unrecognized
+r(199);
+
+. 
+. end
+command end is unrecognized
+r(199);
+
+. break
+
+. foreach i of numlist 1/65 {
+  2.     annotate("`country_name[`i']'", `growth[`i']', `tradeshare[`i']', color(red), size(10))
+  3. }
+command annotate is unrecognized
+r(199);
+
+. 
+. webuse auto
+no; dataset in memory has changed since last saved
+r(4);
+
+. scatter growth tradeshare in 1/65, mlabel(country_name)
+
+. scatter growth tradeshare in 1/65, mlabel(country_name) msize(small)
+
+. scatter growth tradeshare in 60/65, mlabel(country_name) msize(small)
+
+. scatter growth tradeshare in 1/65, mlabel(country_name) msize(small)
+
+. /* there seems to be a slight correlation between growth and tradeshare
+/ is not a valid command name
+r(199);
+
+. it doesn't seem to be all that prominent however. */
+command it is unrecognized
+r(199);
+
+. 
+. reg growth tradeshare
+
+      Source |       SS           df       MS      Number of obs   =        65
+-------------+----------------------------------   F(1, 63)        =      8.89
+       Model |  28.4885066         1  28.4885066   Prob > F        =    0.0041
+    Residual |  201.851551        63  3.20399287   R-squared       =    0.1237
+-------------+----------------------------------   Adj R-squared   =    0.1098
+       Total |  230.340057        64  3.59906339   Root MSE        =      1.79
+
+------------------------------------------------------------------------------
+      growth | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  tradeshare |   2.306434    .773485     2.98   0.004     .7607473     3.85212
+       _cons |   .6402653   .4899767     1.31   0.196    -.3388749    1.619405
+------------------------------------------------------------------------------
+
+. predict growth_pred_0_5, xb
+
+. replace growth_pred_0_5 = growth_pred_0_5 + 0.5 * tradeshare
+(65 real changes made)
+
+. predict growth_hat if tradeshare == 0.5, xb
+(65 missing values generated)
+
+. predict growth_hat if tradeshare == 1, xb
+variable growth_hat already defined
+r(110);
+
+. display growth_hat
+.
+
+. sum growth_hat
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+  growth_hat |          0
+
+. gen growthrate_05 = .6402653 + 0.5* 2.306434
+
+. gen growthrate_1 = .6402653 + 1* 2.306434
+
+. gen growthrate_05 = .6402653 + (0.5* 2.306434)
+variable growthrate_05 already defined
+r(110);
+
+. gen growthrate_1 = .6402653 + (1*2.306434)
+variable growthrate_1 already defined
+r(110);
+
+. 
+. display growthrate_05
+1.7934823
+
+. display growthrate_1
+2.9466994
+
+. reg growth tradeshare if _n < 65
+
+      Source |       SS           df       MS      Number of obs   =        64
+-------------+----------------------------------   F(1, 62)        =      2.90
+       Model |  9.28031557         1  9.28031557   Prob > F        =    0.0937
+    Residual |  198.527844        62  3.20206201   R-squared       =    0.0447
+-------------+----------------------------------   Adj R-squared   =    0.0292
+       Total |   207.80816        63  3.29854222   Root MSE        =    1.7894
+
+------------------------------------------------------------------------------
+      growth | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  tradeshare |   1.680905   .9873624     1.70   0.094    -.2928046    3.654614
+       _cons |   .9574107   .5803727     1.65   0.104    -.2027378    2.117559
+------------------------------------------------------------------------------
+
+. gen adjustedgrowthrate_05 =  .9574107 + 0.5*1.680905
+
+. display adjustedgrowthrate_05
+1.7978632
+
+. gen adjusted growthrate_1 = .9574107 + 1*1.680905
+variable growthrate_1 already defined
+r(110);
+
+. gen adjustedgrowthrate_1 = .9574107 + 1*1.680905
+
+. display adjustedgrowthrate_1
+2.6383157
+
+. gen exclude = 0
+
+. replace exclude = 1 if _n == 65
+(1 real change made)
+
+. 
+. reg growth tradeshare if exclude == 0
+
+      Source |       SS           df       MS      Number of obs   =        64
+-------------+----------------------------------   F(1, 62)        =      2.90
+       Model |  9.28031557         1  9.28031557   Prob > F        =    0.0937
+    Residual |  198.527844        62  3.20206201   R-squared       =    0.0447
+-------------+----------------------------------   Adj R-squared   =    0.0292
+       Total |   207.80816        63  3.29854222   Root MSE        =    1.7894
+
+------------------------------------------------------------------------------
+      growth | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  tradeshare |   1.680905   .9873624     1.70   0.094    -.2928046    3.654614
+       _cons |   .9574107   .5803727     1.65   0.104    -.2027378    2.117559
+------------------------------------------------------------------------------
+
+. predict growth_pred1, xb
+
+. 
+. reg growth tradeshare if exclude == 1
+insufficient observations
+r(2001);
+
+. predict growth_pred2, xb
+
+. 
+. twoway scatter growth tradeshare || scatter growth_pred1 tradeshare, mcolor(red) || scatter growth_pred2 tradeshare, mcolor(green)
+
+. 
+. . gen exclude = 0
+variable exclude already defined
+r(110);
+
+. 
+. . replace exclude = 1 if _n == 65
+(0 real changes made)
+
+. 
+. . reg growth tradeshare if exclude == 0
+
+      Source |       SS           df       MS      Number of obs   =        64
+-------------+----------------------------------   F(1, 62)        =      2.90
+       Model |  9.28031557         1  9.28031557   Prob > F        =    0.0937
+    Residual |  198.527844        62  3.20206201   R-squared       =    0.0447
+-------------+----------------------------------   Adj R-squared   =    0.0292
+       Total |   207.80816        63  3.29854222   Root MSE        =    1.7894
+
+------------------------------------------------------------------------------
+      growth | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  tradeshare |   1.680905   .9873624     1.70   0.094    -.2928046    3.654614
+       _cons |   .9574107   .5803727     1.65   0.104    -.2027378    2.117559
+------------------------------------------------------------------------------
+
+. 
+. . predict growth_pred1, xb
+variable growth_pred1 already defined
+r(110);
+
+. 
+. . reg growth tradeshare if exclude != 1
+
+      Source |       SS           df       MS      Number of obs   =        64
+-------------+----------------------------------   F(1, 62)        =      2.90
+       Model |  9.28031557         1  9.28031557   Prob > F        =    0.0937
+    Residual |  198.527844        62  3.20206201   R-squared       =    0.0447
+-------------+----------------------------------   Adj R-squared   =    0.0292
+       Total |   207.80816        63  3.29854222   Root MSE        =    1.7894
+
+------------------------------------------------------------------------------
+      growth | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  tradeshare |   1.680905   .9873624     1.70   0.094    -.2928046    3.654614
+       _cons |   .9574107   .5803727     1.65   0.104    -.2027378    2.117559
+------------------------------------------------------------------------------
+
+. 
+. . predict growth_pred2, xb
+variable growth_pred2 already defined
+r(110);
+
+. 
+. . twoway scatter growth tradeshare || scatter growth_pred1 tradeshare, mcolor(red) || scatter growth_pred2 tradeshare, mcolor(green)
+
+. 
+. drop growth_pred1
+
+. drop growth_pred2
+
+. drop exclude
+
+. gen exclude = 0
+
+. replace exclude = 1 if _n == 65
+(1 real change made)
+
+. reg growth tradeshare if exclude == 0
+
+      Source |       SS           df       MS      Number of obs   =        64
+-------------+----------------------------------   F(1, 62)        =      2.90
+       Model |  9.28031557         1  9.28031557   Prob > F        =    0.0937
+    Residual |  198.527844        62  3.20206201   R-squared       =    0.0447
+-------------+----------------------------------   Adj R-squared   =    0.0292
+       Total |   207.80816        63  3.29854222   Root MSE        =    1.7894
+
+------------------------------------------------------------------------------
+      growth | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  tradeshare |   1.680905   .9873624     1.70   0.094    -.2928046    3.654614
+       _cons |   .9574107   .5803727     1.65   0.104    -.2027378    2.117559
+------------------------------------------------------------------------------
+
+. predict growth_pred1, xb
+
+. reg growth tradeshare if exclude != 1
+
+      Source |       SS           df       MS      Number of obs   =        64
+-------------+----------------------------------   F(1, 62)        =      2.90
+       Model |  9.28031557         1  9.28031557   Prob > F        =    0.0937
+    Residual |  198.527844        62  3.20206201   R-squared       =    0.0447
+-------------+----------------------------------   Adj R-squared   =    0.0292
+       Total |   207.80816        63  3.29854222   Root MSE        =    1.7894
+
+------------------------------------------------------------------------------
+      growth | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  tradeshare |   1.680905   .9873624     1.70   0.094    -.2928046    3.654614
+       _cons |   .9574107   .5803727     1.65   0.104    -.2027378    2.117559
+------------------------------------------------------------------------------
+
+. predict growth_pred2, xb
+
+. twoway scatter growth tradeshare || scatter growth_pred1 tradeshare, mcolor(red) || scatter growth_pred2 tradeshare, mcolor(green)
+
+. 
+. twoway (scatter growth tradeshare) (lfit growth tradeshare if exclude == 0, connect(l)) (lfit growth tradeshare if exclude == 1, connect(
+> l), lcolor(red)), xtitle("TradeShare") ytitle("Growth")
+invalid 'lcolor' 
+r(198);
+
+. 
+. . gen exclude = 0
+variable exclude already defined
+r(110);
+
+. 
+. . replace exclude = 1 if _n == 65
+(0 real changes made)
+
+. 
+. . reg growth tradeshare if exclude == 0, lcolor(red)
+option lcolor() not allowed
+r(198);
+
+. 
+. . predict growth_pred1, xb
+variable growth_pred1 already defined
+r(110);
+
+. 
+. . reg growth tradeshare if exclude == 1, lcolor(green)
+option lcolor() not allowed
+r(198);
+
+. 
+. . predict growth_pred2, xb
+variable growth_pred2 already defined
+r(110);
+
+. 
+. . twoway (scatter growth tradeshare) (line growth_pred1 tradeshare if exclude == 0, lcolor(red)) (line growth_pred2 tradeshare if exclude
+>  == 1, lcolor(green))
+
+. 
+. drop growth_pred2
+
+. drop growth_pred1
+
+. drop exclude
+
+. . gen exclude = 0
+
+. 
+. . replace exclude = 1 if _n == 65
+(1 real change made)
+
+. 
+. . reg growth tradeshare if exclude == 0, lcolor(red)
+option lcolor() not allowed
+r(198);
+
+. 
+. . predict growth_pred1, xb
+
+. 
+. . reg growth tradeshare if exclude == 1, lcolor(green)
+option lcolor() not allowed
+r(198);
+
+. 
+. . predict growth_pred2, xb
+
+. 
+. . twoway (scatter growth tradeshare) (line growth_pred1 tradeshare if exclude == 0, lcolor(red)) (line growth_pred2 tradeshare if exclude
+>  == 1, lcolor(green))
+
+. 
+. reg growth tradeshare if exclude == 0
+
+      Source |       SS           df       MS      Number of obs   =        64
+-------------+----------------------------------   F(1, 62)        =      2.90
+       Model |  9.28031557         1  9.28031557   Prob > F        =    0.0937
+    Residual |  198.527844        62  3.20206201   R-squared       =    0.0447
+-------------+----------------------------------   Adj R-squared   =    0.0292
+       Total |   207.80816        63  3.29854222   Root MSE        =    1.7894
+
+------------------------------------------------------------------------------
+      growth | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  tradeshare |   1.680905   .9873624     1.70   0.094    -.2928046    3.654614
+       _cons |   .9574107   .5803727     1.65   0.104    -.2027378    2.117559
+------------------------------------------------------------------------------
+
+. predict growth_pred1, xb
+variable growth_pred1 already defined
+r(110);
+
+. 
+. reg growth tradeshare if exclude == 1
+insufficient observations
+r(2001);
+
+. predict growth_pred2, xb
+variable growth_pred2 already defined
+r(110);
+
+. 
+. twoway (scatter growth tradeshare) (line growth_pred1 tradeshare, lstyle(solid)) (line growth_pred2 tradeshare, lstyle(dash))
+(note:  named style dash not found in class linestyle, default attributes used)
+(note:  named style dash not found in class linestyle, default attributes used)
+
+. 
+. drop growth_pred1
+
+. drop growth_pred2
+
+. drop exclude
+
+. . gen exclude = 0
+
+. 
+. . replace exclude = 1 if _n == 65
+(1 real change made)
+
+. (1 real change made)
+( is not a valid command name
+r(199);
+
+. 
+. . reg growth tradeshare if exclude == 0
+
+      Source |       SS           df       MS      Number of obs   =        64
+-------------+----------------------------------   F(1, 62)        =      2.90
+       Model |  9.28031557         1  9.28031557   Prob > F        =    0.0937
+    Residual |  198.527844        62  3.20206201   R-squared       =    0.0447
+-------------+----------------------------------   Adj R-squared   =    0.0292
+       Total |   207.80816        63  3.29854222   Root MSE        =    1.7894
+
+------------------------------------------------------------------------------
+      growth | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  tradeshare |   1.680905   .9873624     1.70   0.094    -.2928046    3.654614
+       _cons |   .9574107   .5803727     1.65   0.104    -.2027378    2.117559
+------------------------------------------------------------------------------
+
+. 
+. . predict growth_pred1, xb
+
+. 
+. . reg growth tradeshare if exclude == 1
+insufficient observations
+r(2001);
+
+. 
+. . predict growth_pred2, xb
+
+. 
+. . twoway (scatter growth tradeshare) (line growth_pred1 tradeshare if exclude == 0) (line growth_pred2 tradeshare if exclude == 1), 
+
+.     ylabel(Growth) xlabel(TradeShare)
+command ylabel is unrecognized
+r(199);
+
+. 
+. drop growth_pred2
+
+. drop growth_pred1
+
+. drop exclude
+
+. reg growth tradeshare
+
+      Source |       SS           df       MS      Number of obs   =        65
+-------------+----------------------------------   F(1, 63)        =      8.89
+       Model |  28.4885066         1  28.4885066   Prob > F        =    0.0041
+    Residual |  201.851551        63  3.20399287   R-squared       =    0.1237
+-------------+----------------------------------   Adj R-squared   =    0.1098
+       Total |  230.340057        64  3.59906339   Root MSE        =      1.79
+
+------------------------------------------------------------------------------
+      growth | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  tradeshare |   2.306434    .773485     2.98   0.004     .7607473     3.85212
+       _cons |   .6402653   .4899767     1.31   0.196    -.3388749    1.619405
+------------------------------------------------------------------------------
+
+. predict growth_pred1, xb
+
+. twoway scatter growth tradeshare || scatter growth_pred1 tradeshare
+
+. reg growth tradeshare if _n < 65
+
+      Source |       SS           df       MS      Number of obs   =        64
+-------------+----------------------------------   F(1, 62)        =      2.90
+       Model |  9.28031557         1  9.28031557   Prob > F        =    0.0937
+    Residual |  198.527844        62  3.20206201   R-squared       =    0.0447
+-------------+----------------------------------   Adj R-squared   =    0.0292
+       Total |   207.80816        63  3.29854222   Root MSE        =    1.7894
+
+------------------------------------------------------------------------------
+      growth | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  tradeshare |   1.680905   .9873624     1.70   0.094    -.2928046    3.654614
+       _cons |   .9574107   .5803727     1.65   0.104    -.2027378    2.117559
+------------------------------------------------------------------------------
+
+. predict growth_pred2, xb
+
+. twoway scatter growth tradeshare || scatter growth_pred2 tradeshare
+
+. exit, clear

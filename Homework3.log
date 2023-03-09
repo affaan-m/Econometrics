@@ -1,0 +1,1182 @@
+-------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/affoon/Stata Data/Homework3.log
+  log type:  text
+ opened on:  30 Jan 2023, 22:34:10
+
+. use "CPS96_15"
+
+. // 1a
+/ is not a valid command name
+r(199);
+
+. mean ahe if year == 1996
+
+Mean estimation                          Number of obs = 6,103
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   12.69326   .0813991      12.53369    12.85283
+--------------------------------------------------------------
+
+. sum ahe if year == 1996
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+         ahe |      6,103    12.69326    6.359035       1.36       62.5
+
+. sum ahe if year == 2015
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+         ahe |      7,098    21.23744     12.1245   2.040816   105.7692
+
+. ci mean if year == 1996
+
+    Variable |        Obs        Mean    Std. err.       [95% conf. interval]
+-------------+---------------------------------------------------------------
+        year |      6,103        1996           0            1996        1996
+         ahe |      6,103    12.69326    .0813991        12.53369    12.85283
+    bachelor |      6,103    .4291332    .0063362        .4167121    .4415544
+      female |      6,103    .4174996    .0063131        .4051238    .4298754
+         age |      6,103    29.61625    .0366782        29.54435    29.68816
+
+. ci mean ahe if year == 1996
+
+    Variable |        Obs        Mean    Std. err.       [95% conf. interval]
+-------------+---------------------------------------------------------------
+         ahe |      6,103    12.69326    .0813991        12.53369    12.85283
+
+. ci mean ahe if year == 2015
+
+    Variable |        Obs        Mean    Std. err.       [95% conf. interval]
+-------------+---------------------------------------------------------------
+         ahe |      7,098    21.23744    .1439117        20.95533    21.51955
+
+. gen mean_1996 = mean ahe if year == 1996
+mean not found
+r(111);
+
+. gen mean_2015 = mean ahe if year == 2015
+mean not found
+r(111);
+
+. gen change = mean_1996 - mean_2015
+mean_1996 not found
+r(111);
+
+. gen mean_1996 = mean(ahe if year == 1996)
+unknown function mean()
+r(133);
+
+. gen mean_1996 = mean ahe if year == 1996
+mean not found
+r(111);
+
+. mean ahe if year == 1996
+
+Mean estimation                          Number of obs = 6,103
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   12.69326   .0813991      12.53369    12.85283
+--------------------------------------------------------------
+
+. egen mean_1996 = mean ahe if year == 1996
+r(198);
+
+. egen mean_1996 = mean ahe if year == 2015
+r(198);
+
+. egen mean_1996 = mean ahe if year == 1996
+r(198);
+
+. egen mean_2015 = mean ahe if year == 2015
+r(198);
+
+. mean_1996 = mean ahe if year == 1996
+command mean_1996 is unrecognized
+r(199);
+
+. gen mean_1996 = mean ahe if year == 1996
+mean not found
+r(111);
+
+. egen mean_1996 = mean ahe if year == 1996
+r(198);
+
+. gen mean_age_1996 = .
+(13,201 missing values generated)
+
+. replace mean_age_1996 = mean(age) if year == 1996
+unknown function mean()
+r(133);
+
+. gen mean_age_1996 = .
+variable mean_age_1996 already defined
+r(110);
+
+. replace mean_age_1996 = mean ahe if year == 1996
+invalid 'ahe' 
+r(198);
+
+. gen mean_age_1996 = .
+variable mean_age_1996 already defined
+r(110);
+
+. replace mean_age_1996 = mean ahe if year == 1996
+invalid 'ahe' 
+r(198);
+
+. sum ahe if year == 1996
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+         ahe |      6,103    12.69326    6.359035       1.36       62.5
+
+. sum ahe if year == 2015
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+         ahe |      7,098    21.23744     12.1245   2.040816   105.7692
+
+. gen change = 12.69326 - 21.23744
+
+. ci change
+you must specify one of means, proportions, or variances following ci
+r(198);
+
+. ci mean change
+
+    Variable |        Obs        Mean    Std. err.       [95% conf. interval]
+-------------+---------------------------------------------------------------
+      change |     13,201    -8.54418           0        -8.54418    -8.54418
+
+. sum ahe if year == 1996
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+         ahe |      6,103    12.69326    6.359035       1.36       62.5
+
+. sum ahe if year == 2015
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+         ahe |      7,098    21.23744     12.1245   2.040816   105.7692
+
+. ci mean ahe if year == 1996
+
+    Variable |        Obs        Mean    Std. err.       [95% conf. interval]
+-------------+---------------------------------------------------------------
+         ahe |      6,103    12.69326    .0813991        12.53369    12.85283
+
+. ci mean ahe if year == 2015
+
+    Variable |        Obs        Mean    Std. err.       [95% conf. interval]
+-------------+---------------------------------------------------------------
+         ahe |      7,098    21.23744    .1439117        20.95533    21.51955
+
+. use "CPS96_15.dta"
+no; dataset in memory has changed since last saved
+r(4);
+
+. sum ahe if year == 1996
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+         ahe |      6,103    12.69326    6.359035       1.36       62.5
+
+. mean ahe if year == 1996
+
+Mean estimation                          Number of obs = 6,103
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   12.69326   .0813991      12.53369    12.85283
+--------------------------------------------------------------
+
+. sum ahe if year == 2015
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+         ahe |      7,098    21.23744     12.1245   2.040816   105.7692
+
+. mean ahe if year == 2015
+
+Mean estimation                          Number of obs = 7,098
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   21.23744   .1439117      20.95533    21.51955
+--------------------------------------------------------------
+
+. sd ahe if year == 1996
+command sd is unrecognized
+r(199);
+
+. sd ahe if year == 2015
+command sd is unrecognized
+r(199);
+
+. ttest ahe, by(year)
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+---------+--------------------------------------------------------------------
+    1996 |   6,103    12.69326    .0813991    6.359035    12.53369    12.85283
+    2015 |   7,098    21.23744    .1439117     12.1245    20.95533    21.51955
+---------+--------------------------------------------------------------------
+Combined |  13,201    17.28735    .0936909    10.76467     17.1037      17.471
+---------+--------------------------------------------------------------------
+    diff |           -8.544178    .1725813               -8.882462   -8.205894
+------------------------------------------------------------------------------
+    diff = mean(1996) - mean(2015)                                t = -49.5081
+H0: diff = 0                                     Degrees of freedom =    13199
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.0000         Pr(|T| > |t|) = 0.0000          Pr(T > t) = 1.0000
+
+. ttest ahe if year == 1996, by(year)
+1 group found, 2 required
+r(420);
+
+. gen ahe2015 = ahe * (237.0 / 156.9) if year == 1996
+(7,098 missing values generated)
+
+. sum ahe2015 if year == 1996
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     ahe2015 |      6,103    19.17338    9.605425   2.054302   94.40726
+
+. mean ahe2015 if year == 1996
+
+Mean estimation                          Number of obs = 6,103
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+     ahe2015 |   19.17338   .1229546      18.93234    19.41441
+--------------------------------------------------------------
+
+. sd ahe2015 if year == 1996
+command sd is unrecognized
+r(199);
+
+. ttest ahe2015, by(year)
+1 group found, 2 required
+r(420);
+
+. ttest ahe2015 if year == 1996, by(year)
+1 group found, 2 required
+r(420);
+
+. ttest ahe if degree == 0
+degree not found
+r(111);
+
+. ttest ahe if degree == 1
+degree not found
+r(111);
+
+. ttest ahe if degree == 0, by(degree)
+degree not found
+r(111);
+
+. ttest ahe2015 if degree == 0
+degree not found
+r(111);
+
+. ttest ahe2015 if degree == 1
+degree not found
+r(111);
+
+. ttest ahe2015 if degree == 0, by(degree)
+degree not found
+r(111);
+
+. do "/var/folders/ck/y983js7n5lz1z5ls6fq8v0cm0000gn/T//SD98103.000000"
+
+. // E3.1
+. //a
+. use "CPS96_15"
+no; dataset in memory has changed since last saved
+r(4);
+
+end of do-file
+
+r(4);
+
+. do "/var/folders/ck/y983js7n5lz1z5ls6fq8v0cm0000gn/T//SD98103.000000"
+
+. // E3.1
+. //a
+. use "CPS96_15"
+no; dataset in memory has changed since last saved
+r(4);
+
+end of do-file
+
+r(4);
+
+. do "/var/folders/ck/y983js7n5lz1z5ls6fq8v0cm0000gn/T//SD98103.000000"
+
+. // E3.1
+. //a
+. use "CPS96_15"
+no; dataset in memory has changed since last saved
+r(4);
+
+end of do-file
+
+r(4);
+
+. do "/var/folders/ck/y983js7n5lz1z5ls6fq8v0cm0000gn/T//SD98103.000000"
+
+. // E3.1
+. //a
+. use "CPS96_15.dta"
+no; dataset in memory has changed since last saved
+r(4);
+
+end of do-file
+
+r(4);
+
+. // E3.1
+/ is not a valid command name
+r(199);
+
+. //a
+/ is not a valid command name
+r(199);
+
+. use "CPS96_15.dta"
+no; dataset in memory has changed since last saved
+r(4);
+
+. mean ahe if year == 1996
+
+Mean estimation                          Number of obs = 6,103
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   12.69326   .0813991      12.53369    12.85283
+--------------------------------------------------------------
+
+. mean ahe if year == 2015
+
+Mean estimation                          Number of obs = 7,098
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   21.23744   .1439117      20.95533    21.51955
+--------------------------------------------------------------
+
+. gen sd_1996 = (ahe - r(mean))^2
+(13,201 missing values generated)
+
+. sum sd_1996 if year == 1996
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     sd_1996 |          0
+
+. gen sd_2015 = (ahe - r(mean))^2
+(13,201 missing values generated)
+
+. sum sd_2015 if year == 2015
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     sd_2015 |          0
+
+. ttest ahe, by(year)
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+---------+--------------------------------------------------------------------
+    1996 |   6,103    12.69326    .0813991    6.359035    12.53369    12.85283
+    2015 |   7,098    21.23744    .1439117     12.1245    20.95533    21.51955
+---------+--------------------------------------------------------------------
+Combined |  13,201    17.28735    .0936909    10.76467     17.1037      17.471
+---------+--------------------------------------------------------------------
+    diff |           -8.544178    .1725813               -8.882462   -8.205894
+------------------------------------------------------------------------------
+    diff = mean(1996) - mean(2015)                                t = -49.5081
+H0: diff = 0                                     Degrees of freedom =    13199
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.0000         Pr(|T| > |t|) = 0.0000          Pr(T > t) = 1.0000
+
+. gen diff = ahe if year == 2015 - ahe if year == 1996
+invalid syntax
+r(198);
+
+. ttest diff
+variable diff not found
+r(111);
+
+. //b
+/ is not a valid command name
+r(199);
+
+. gen ahe_2015 = ahe * 237.0/156.9 if year == 1996
+(7,098 missing values generated)
+
+. replace ahe = ahe_2015 if year == 1996
+(6,103 real changes made)
+
+. mean ahe if year == 1996
+
+Mean estimation                          Number of obs = 6,103
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   19.17338   .1229546      18.93234    19.41441
+--------------------------------------------------------------
+
+. mean ahe if year == 2015
+
+Mean estimation                          Number of obs = 7,098
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   21.23744   .1439117      20.95533    21.51955
+--------------------------------------------------------------
+
+. gen sd_1996 = (ahe - r(mean))^2
+variable sd_1996 already defined
+r(110);
+
+. sum sd_1996 if year == 1996
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     sd_1996 |          0
+
+. gen sd_2015 = (ahe - r(mean))^2
+variable sd_2015 already defined
+r(110);
+
+. sum sd_2015 if year == 2015
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     sd_2015 |          0
+
+. ttest ahe, by(year)
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+---------+--------------------------------------------------------------------
+    1996 |   6,103    19.17338    .1229546    9.605425    18.93234    19.41441
+    2015 |   7,098    21.23744    .1439117     12.1245    20.95533    21.51955
+---------+--------------------------------------------------------------------
+Combined |  13,201    20.28319    .0964278    11.07913    20.09418    20.47221
+---------+--------------------------------------------------------------------
+    diff |           -2.064062    .1925768                -2.44154   -1.686584
+------------------------------------------------------------------------------
+    diff = mean(1996) - mean(2015)                                t = -10.7181
+H0: diff = 0                                     Degrees of freedom =    13199
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.0000         Pr(|T| > |t|) = 0.0000          Pr(T > t) = 1.0000
+
+. gen diff = ahe if year == 2015 - ahe if year == 1996
+invalid syntax
+r(198);
+
+. ttest diff
+variable diff not found
+r(111);
+
+. //c we would use the results from b because the data are 
+/ is not a valid command name
+r(199);
+
+. //adjusted for the price inflation that occurred between 1996 and 2015.
+/ is not a valid command name
+r(199);
+
+. //d
+/ is not a valid command name
+r(199);
+
+. ttest ahe if bachelor == 1
+by() option required
+r(100);
+
+. ttest ahe if bachelor == 2
+by() option required
+r(100);
+
+. ttest ahe if bachelor == 1, by(degree)
+variable degree not found
+(error in option by())
+r(111);
+
+. //e
+/ is not a valid command name
+r(199);
+
+. gen ahe_2015 = ahe * 237.0/156.9 if year == 1996
+variable ahe_2015 already defined
+r(110);
+
+. replace ahe = ahe_2015 if year == 1996
+(0 real changes made)
+
+. ttest ahe if bachelor == 1
+by() option required
+r(100);
+
+. ttest ahe if bachelor == 2
+by() option required
+r(100);
+
+. ttest ahe if bachelor == 1, by(degree)
+variable degree not found
+(error in option by())
+r(111);
+
+. ttest ahe_2015 if bachelor == 1 & year == 1996, by(year)
+1 group found, 2 required
+r(420);
+
+. // E3.1
+/ is not a valid command name
+r(199);
+
+. //a
+/ is not a valid command name
+r(199);
+
+. use "CPS96_15.dta"
+no; dataset in memory has changed since last saved
+r(4);
+
+. mean ahe if year == 1996
+
+Mean estimation                          Number of obs = 6,103
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   19.17338   .1229546      18.93234    19.41441
+--------------------------------------------------------------
+
+. mean ahe if year == 2015
+
+Mean estimation                          Number of obs = 7,098
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   21.23744   .1439117      20.95533    21.51955
+--------------------------------------------------------------
+
+. gen sd_1996 = (ahe - r(mean))^2
+variable sd_1996 already defined
+r(110);
+
+. sum sd_1996 if year == 1996
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     sd_1996 |          0
+
+. gen sd_2015 = (ahe - r(mean))^2
+variable sd_2015 already defined
+r(110);
+
+. sum sd_2015 if year == 2015
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     sd_2015 |          0
+
+. ttest ahe, by(year)
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+---------+--------------------------------------------------------------------
+    1996 |   6,103    19.17338    .1229546    9.605425    18.93234    19.41441
+    2015 |   7,098    21.23744    .1439117     12.1245    20.95533    21.51955
+---------+--------------------------------------------------------------------
+Combined |  13,201    20.28319    .0964278    11.07913    20.09418    20.47221
+---------+--------------------------------------------------------------------
+    diff |           -2.064062    .1925768                -2.44154   -1.686584
+------------------------------------------------------------------------------
+    diff = mean(1996) - mean(2015)                                t = -10.7181
+H0: diff = 0                                     Degrees of freedom =    13199
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.0000         Pr(|T| > |t|) = 0.0000          Pr(T > t) = 1.0000
+
+. gen diff = ahe if year == 2015 - ahe if year == 1996
+invalid syntax
+r(198);
+
+. ttest diff
+variable diff not found
+r(111);
+
+. //b
+/ is not a valid command name
+r(199);
+
+. gen ahe_2015 = ahe * 237.0/156.9 if year == 1996
+variable ahe_2015 already defined
+r(110);
+
+. replace ahe = ahe_2015 if year == 1996
+(0 real changes made)
+
+. mean ahe if year == 1996
+
+Mean estimation                          Number of obs = 6,103
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   19.17338   .1229546      18.93234    19.41441
+--------------------------------------------------------------
+
+. mean ahe if year == 2015
+
+Mean estimation                          Number of obs = 7,098
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   21.23744   .1439117      20.95533    21.51955
+--------------------------------------------------------------
+
+. gen sd_1996 = (ahe - r(mean))^2
+variable sd_1996 already defined
+r(110);
+
+. sum sd_1996 if year == 1996
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     sd_1996 |          0
+
+. gen sd_2015 = (ahe - r(mean))^2
+variable sd_2015 already defined
+r(110);
+
+. sum sd_2015 if year == 2015
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     sd_2015 |          0
+
+. ttest ahe, by(year)
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+---------+--------------------------------------------------------------------
+    1996 |   6,103    19.17338    .1229546    9.605425    18.93234    19.41441
+    2015 |   7,098    21.23744    .1439117     12.1245    20.95533    21.51955
+---------+--------------------------------------------------------------------
+Combined |  13,201    20.28319    .0964278    11.07913    20.09418    20.47221
+---------+--------------------------------------------------------------------
+    diff |           -2.064062    .1925768                -2.44154   -1.686584
+------------------------------------------------------------------------------
+    diff = mean(1996) - mean(2015)                                t = -10.7181
+H0: diff = 0                                     Degrees of freedom =    13199
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.0000         Pr(|T| > |t|) = 0.0000          Pr(T > t) = 1.0000
+
+. gen diff = ahe if year == 2015 - ahe if year == 1996
+invalid syntax
+r(198);
+
+. ttest diff
+variable diff not found
+r(111);
+
+. //c we would use the results from b because the data are 
+/ is not a valid command name
+r(199);
+
+. //adjusted for the price inflation that occurred between 1996 and 2015.
+/ is not a valid command name
+r(199);
+
+. //d
+/ is not a valid command name
+r(199);
+
+. ttest ahe if bachelor == 1
+by() option required
+r(100);
+
+. ttest ahe if bachelor == 2
+by() option required
+r(100);
+
+. ttest ahe if bachelor == 1, by(degree)
+variable degree not found
+(error in option by())
+r(111);
+
+. //e
+/ is not a valid command name
+r(199);
+
+. gen ahe_2015 = ahe * 237.0/156.9 if year == 1996
+variable ahe_2015 already defined
+r(110);
+
+. replace ahe = ahe_2015 if year == 1996
+(0 real changes made)
+
+. ttest ahe if bachelor == 1
+by() option required
+r(100);
+
+. ttest ahe if bachelor == 2
+by() option required
+r(100);
+
+. ttest ahe if bachelor == 1, by(bachelor)
+1 group found, 2 required
+r(420);
+
+. ttest ahe_2015 if bachelor == 1 & year == 1996, by(year)
+1 group found, 2 required
+r(420);
+
+. // E3.1
+/ is not a valid command name
+r(199);
+
+. //a
+/ is not a valid command name
+r(199);
+
+. use "CPS96_15.dta"
+no; dataset in memory has changed since last saved
+r(4);
+
+. mean ahe if year == 1996
+
+Mean estimation                          Number of obs = 6,103
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   19.17338   .1229546      18.93234    19.41441
+--------------------------------------------------------------
+
+. mean ahe if year == 2015
+
+Mean estimation                          Number of obs = 7,098
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   21.23744   .1439117      20.95533    21.51955
+--------------------------------------------------------------
+
+. gen sd_1996 = (ahe - r(mean))^2
+variable sd_1996 already defined
+r(110);
+
+. sum sd_1996 if year == 1996
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     sd_1996 |          0
+
+. gen sd_2015 = (ahe - r(mean))^2
+variable sd_2015 already defined
+r(110);
+
+. sum sd_2015 if year == 2015
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     sd_2015 |          0
+
+. ttest ahe, by(year)
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+---------+--------------------------------------------------------------------
+    1996 |   6,103    19.17338    .1229546    9.605425    18.93234    19.41441
+    2015 |   7,098    21.23744    .1439117     12.1245    20.95533    21.51955
+---------+--------------------------------------------------------------------
+Combined |  13,201    20.28319    .0964278    11.07913    20.09418    20.47221
+---------+--------------------------------------------------------------------
+    diff |           -2.064062    .1925768                -2.44154   -1.686584
+------------------------------------------------------------------------------
+    diff = mean(1996) - mean(2015)                                t = -10.7181
+H0: diff = 0                                     Degrees of freedom =    13199
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.0000         Pr(|T| > |t|) = 0.0000          Pr(T > t) = 1.0000
+
+. gen diff = ahe if year == 2015 - ahe if year == 1996
+invalid syntax
+r(198);
+
+. ttest diff
+variable diff not found
+r(111);
+
+. //b
+/ is not a valid command name
+r(199);
+
+. gen ahe_2015 = ahe * 237.0/156.9 if year == 1996
+variable ahe_2015 already defined
+r(110);
+
+. replace ahe = ahe_2015 if year == 1996
+(0 real changes made)
+
+. mean ahe if year == 1996
+
+Mean estimation                          Number of obs = 6,103
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   19.17338   .1229546      18.93234    19.41441
+--------------------------------------------------------------
+
+. mean ahe if year == 2015
+
+Mean estimation                          Number of obs = 7,098
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   21.23744   .1439117      20.95533    21.51955
+--------------------------------------------------------------
+
+. gen sd_1996 = (ahe - r(mean))^2
+variable sd_1996 already defined
+r(110);
+
+. sum sd_1996 if year == 1996
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     sd_1996 |          0
+
+. gen sd_2015 = (ahe - r(mean))^2
+variable sd_2015 already defined
+r(110);
+
+. sum sd_2015 if year == 2015
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     sd_2015 |          0
+
+. ttest ahe, by(year)
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+---------+--------------------------------------------------------------------
+    1996 |   6,103    19.17338    .1229546    9.605425    18.93234    19.41441
+    2015 |   7,098    21.23744    .1439117     12.1245    20.95533    21.51955
+---------+--------------------------------------------------------------------
+Combined |  13,201    20.28319    .0964278    11.07913    20.09418    20.47221
+---------+--------------------------------------------------------------------
+    diff |           -2.064062    .1925768                -2.44154   -1.686584
+------------------------------------------------------------------------------
+    diff = mean(1996) - mean(2015)                                t = -10.7181
+H0: diff = 0                                     Degrees of freedom =    13199
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.0000         Pr(|T| > |t|) = 0.0000          Pr(T > t) = 1.0000
+
+. gen diff = ahe if year == 2015 - ahe if year == 1996
+invalid syntax
+r(198);
+
+. ttest diff
+variable diff not found
+r(111);
+
+. //c we would use the results from b because the data are 
+/ is not a valid command name
+r(199);
+
+. //adjusted for the price inflation that occurred between 1996 and 2015.
+/ is not a valid command name
+r(199);
+
+. //d
+/ is not a valid command name
+r(199);
+
+. ttest ahe if bachelor == 1
+by() option required
+r(100);
+
+. ttest ahe if bachelor == 2
+by() option required
+r(100);
+
+. ttest ahe if bachelor == 1, by(bachelor)
+1 group found, 2 required
+r(420);
+
+. //e
+/ is not a valid command name
+r(199);
+
+. gen ahe_2015 = ahe * 237.0/156.9 if year == 1996
+variable ahe_2015 already defined
+r(110);
+
+. replace ahe = ahe_2015 if year == 1996
+(0 real changes made)
+
+. ttest ahe if bachelor == 1
+by() option required
+r(100);
+
+. ttest ahe if bachelor == 2
+by() option required
+r(100);
+
+. ttest ahe if bachelor == 1, by(bachelor)
+1 group found, 2 required
+r(420);
+
+. ttest ahe_2015 if bachelor == 1 & year == 1996, by(year)
+1 group found, 2 required
+r(420);
+
+. // E3.1
+/ is not a valid command name
+r(199);
+
+. //a
+/ is not a valid command name
+r(199);
+
+. use "CPS96_15.dta"
+no; dataset in memory has changed since last saved
+r(4);
+
+. mean ahe if year == 1996
+
+Mean estimation                          Number of obs = 6,103
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   19.17338   .1229546      18.93234    19.41441
+--------------------------------------------------------------
+
+. mean ahe if year == 2015
+
+Mean estimation                          Number of obs = 7,098
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   21.23744   .1439117      20.95533    21.51955
+--------------------------------------------------------------
+
+. gen sd_1996 = (ahe - r(mean))^2
+variable sd_1996 already defined
+r(110);
+
+. sum sd_1996 if year == 1996
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     sd_1996 |          0
+
+. gen sd_2015 = (ahe - r(mean))^2
+variable sd_2015 already defined
+r(110);
+
+. sum sd_2015 if year == 2015
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     sd_2015 |          0
+
+. ttest ahe, by(year)
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+---------+--------------------------------------------------------------------
+    1996 |   6,103    19.17338    .1229546    9.605425    18.93234    19.41441
+    2015 |   7,098    21.23744    .1439117     12.1245    20.95533    21.51955
+---------+--------------------------------------------------------------------
+Combined |  13,201    20.28319    .0964278    11.07913    20.09418    20.47221
+---------+--------------------------------------------------------------------
+    diff |           -2.064062    .1925768                -2.44154   -1.686584
+------------------------------------------------------------------------------
+    diff = mean(1996) - mean(2015)                                t = -10.7181
+H0: diff = 0                                     Degrees of freedom =    13199
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.0000         Pr(|T| > |t|) = 0.0000          Pr(T > t) = 1.0000
+
+. gen diff = ahe if year == 2015 - ahe if year == 1996
+invalid syntax
+r(198);
+
+. ttest diff
+variable diff not found
+r(111);
+
+. //b
+/ is not a valid command name
+r(199);
+
+. gen ahe_2015 = ahe * 237.0/156.9 if year == 1996
+variable ahe_2015 already defined
+r(110);
+
+. replace ahe = ahe_2015 if year == 1996
+(0 real changes made)
+
+. mean ahe if year == 1996
+
+Mean estimation                          Number of obs = 6,103
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   19.17338   .1229546      18.93234    19.41441
+--------------------------------------------------------------
+
+. mean ahe if year == 2015
+
+Mean estimation                          Number of obs = 7,098
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         ahe |   21.23744   .1439117      20.95533    21.51955
+--------------------------------------------------------------
+
+. gen sd_1996 = (ahe - r(mean))^2
+variable sd_1996 already defined
+r(110);
+
+. sum sd_1996 if year == 1996
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     sd_1996 |          0
+
+. gen sd_2015 = (ahe - r(mean))^2
+variable sd_2015 already defined
+r(110);
+
+. sum sd_2015 if year == 2015
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     sd_2015 |          0
+
+. ttest ahe, by(year)
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+---------+--------------------------------------------------------------------
+    1996 |   6,103    19.17338    .1229546    9.605425    18.93234    19.41441
+    2015 |   7,098    21.23744    .1439117     12.1245    20.95533    21.51955
+---------+--------------------------------------------------------------------
+Combined |  13,201    20.28319    .0964278    11.07913    20.09418    20.47221
+---------+--------------------------------------------------------------------
+    diff |           -2.064062    .1925768                -2.44154   -1.686584
+------------------------------------------------------------------------------
+    diff = mean(1996) - mean(2015)                                t = -10.7181
+H0: diff = 0                                     Degrees of freedom =    13199
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.0000         Pr(|T| > |t|) = 0.0000          Pr(T > t) = 1.0000
+
+. gen diff = ahe if year == 2015 - ahe if year == 1996
+invalid syntax
+r(198);
+
+. ttest diff
+variable diff not found
+r(111);
+
+. //c we would use the results from b because the data are 
+/ is not a valid command name
+r(199);
+
+. //adjusted for the price inflation that occurred between 1996 and 2015.
+/ is not a valid command name
+r(199);
+
+. //d
+/ is not a valid command name
+r(199);
+
+. ttest ahe if bachelor == 1
+by() option required
+r(100);
+
+. ttest ahe if bachelor == 2
+by() option required
+r(100);
+
+. ttest ahe if bachelor == 1, by(bachelor)
+1 group found, 2 required
+r(420);
+
+. //e
+/ is not a valid command name
+r(199);
+
+. gen ahe_2015 = ahe * 237.0/156.9 if year == 1996
+variable ahe_2015 already defined
+r(110);
+
+. replace ahe = ahe_2015 if year == 1996
+(0 real changes made)
+
+. ttest ahe if bachelor == 1
+by() option required
+r(100);
+
+. ttest ahe if bachelor == 2
+by() option required
+r(100);
+
+. ttest ahe if bachelor == 1, by(bachelor)
+1 group found, 2 required
+r(420);
+
+. ttest ahe_2015 if bachelor == 1 & year == 1996, by(year)
+1 group found, 2 required
+r(420);
+

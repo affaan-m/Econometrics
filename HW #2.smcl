@@ -1,0 +1,343 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/affoon/Stata Data/HW #2.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}22 Jan 2023, 00:46:43
+
+{com}. use baseballsalaries.dta
+
+. mean payroll
+{res}
+{txt}Mean estimation{col 45}{lalign 13:Number of obs}{col 58} = {res}{ralign 2:30}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 5}payroll {c |}{col 14}{res}{space 2} 42170.28{col 26}{space 2} 3255.349{col 37}{space 5} 35512.35{col 51}{space 3} 48828.22
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+
+{com}. tab wins
+
+       {txt}Wins {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+         54 {c |}{res}          1        3.33        3.33
+{txt}         63 {c |}{res}          1        3.33        6.67
+{txt}         65 {c |}{res}          3       10.00       16.67
+{txt}         69 {c |}{res}          1        3.33       20.00
+{txt}         70 {c |}{res}          1        3.33       23.33
+{txt}         72 {c |}{res}          1        3.33       26.67
+{txt}         74 {c |}{res}          2        6.67       33.33
+{txt}         75 {c |}{res}          1        3.33       36.67
+{txt}         76 {c |}{res}          1        3.33       40.00
+{txt}         77 {c |}{res}          2        6.67       46.67
+{txt}         79 {c |}{res}          1        3.33       50.00
+{txt}         80 {c |}{res}          1        3.33       53.33
+{txt}         83 {c |}{res}          2        6.67       60.00
+{txt}         85 {c |}{res}          1        3.33       63.33
+{txt}         88 {c |}{res}          3       10.00       73.33
+{txt}         89 {c |}{res}          2        6.67       80.00
+{txt}         90 {c |}{res}          1        3.33       83.33
+{txt}         92 {c |}{res}          1        3.33       86.67
+{txt}         98 {c |}{res}          1        3.33       90.00
+{txt}        102 {c |}{res}          1        3.33       93.33
+{txt}        106 {c |}{res}          1        3.33       96.67
+{txt}        114 {c |}{res}          1        3.33      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}         30      100.00
+
+{com}. generate totalgames = wins + losses
+
+. tab totalgames
+
+ {txt}totalgames {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+        161 {c |}{res}          2        6.67        6.67
+{txt}        162 {c |}{res}         26       86.67       93.33
+{txt}        163 {c |}{res}          2        6.67      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}         30      100.00
+
+{com}. mean totalgames
+{res}
+{txt}Mean estimation{col 45}{lalign 13:Number of obs}{col 58} = {res}{ralign 2:30}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 2}totalgames {c |}{col 14}{res}{space 2}      162{col 26}{space 2} .0678064{col 37}{space 5} 161.8613{col 51}{space 3} 162.1387
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+
+{com}. mean wins / mean totalgames
+{err}'/' not allowed in varlist
+{txt}{search r(198), local:r(198);}
+
+{com}. totalgames = mean(totalgames)
+{err}command {bf}totalgames{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+{com}. generate meantotalgames = mean(totalgames)
+{err}unknown function mean()
+{txt}{search r(133), local:r(133);}
+
+{com}. generate meantotalgames = mean totalgames
+{err}mean not found
+{txt}{search r(111), local:r(111);}
+
+{com}. generate meanwins = mean(wins)
+{err}unknown function mean()
+{txt}{search r(133), local:r(133);}
+
+{com}. mean wins
+{res}
+{txt}Mean estimation{col 45}{lalign 13:Number of obs}{col 58} = {res}{ralign 2:30}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 8}wins {c |}{col 14}{res}{space 2}       81{col 26}{space 2}  2.47005{col 37}{space 5} 75.94818{col 51}{space 3} 86.05182
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+
+{com}. meanwinpercentage = mean wins / mean totalgames
+{err}command {bf}meanwinpercentage{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+{com}. generate meanwinpercentage = mean wins / mean totalgames
+{err}mean not found
+{txt}{search r(111), local:r(111);}
+
+{com}. meanwinpercentage = mean wins/totalgames
+{err}command {bf}meanwinpercentage{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+{com}. generate meanwinpercentage = mean wins/totalgames
+{err}mean not found
+{txt}{search r(111), local:r(111);}
+
+{com}. generate winningpercentage = wins/totalgames
+
+. mean winningpercentage
+{res}
+{txt}Mean estimation{col 50}{lalign 13:Number of obs}{col 63} = {res}{ralign 2:30}
+
+{txt}{hline 18}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 19}{c |}       Mean{col 31}   Std. err.{col 43}     [95% con{col 56}f. interval]
+{hline 18}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+winningpercentage {c |}{col 19}{res}{space 2} .4999632{col 31}{space 2} .0152035{col 42}{space 5} .4688686{col 56}{space 3} .5310578
+{txt}{hline 18}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+
+{com}. help graph twoway
+
+. twoway scatter winningpercentage payroll
+{res}
+{com}. tab playoffs
+
+     {txt}1=made {c |}
+  playoffs, {c |}
+  0=did not {c |}
+       make {c |}
+   playoffs {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}         22       73.33       73.33
+{txt}          1 {c |}{res}          8       26.67      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}         30      100.00
+
+{com}. tabulate playoffs team, generate(teamplayoffs)
+{err}option {bf:generate()} not allowed
+{txt}{search r(198), local:r(198);}
+
+{com}.  tabulate playoffs team
+
+    {txt}1=made {c |}
+ playoffs, {c |}
+ 0=did not {c |}
+      make {c |}                                                     Team
+  playoffs {c |}   Anaheim    Arizona    Atlanta  Baltimore     Boston   Chi Cubs   Chi Wsox  Cincinn..  Cleveland   Colorado {c |}     Total
+{hline 11}{c +}{hline 110}{c +}{hline 10}
+         0 {c |}{res}         1          1          0          1          0          0          1          1          0          1 {txt}{c |}{res}        22 
+{txt}         1 {c |}{res}         0          0          1          0          1          1          0          0          1          0 {txt}{c |}{res}         8 
+{txt}{hline 11}{c +}{hline 110}{c +}{hline 10}
+     Total {c |}{res}         1          1          1          1          1          1          1          1          1          1 {txt}{c |}{res}        30 
+
+
+    {txt}1=made {c |}
+ playoffs, {c |}
+ 0=did not {c |}
+      make {c |}                                                     Team
+  playoffs {c |}   Detroit    Florida    Houston  Kansas ..  Los Ang..  Milwaukee  Minnesota   Montreal    NY Mets  NY Yank.. {c |}     Total
+{hline 11}{c +}{hline 110}{c +}{hline 10}
+         0 {c |}{res}         1          1          0          1          1          1          1          1          1          0 {txt}{c |}{res}        22 
+{txt}         1 {c |}{res}         0          0          1          0          0          0          0          0          0          1 {txt}{c |}{res}         8 
+{txt}{hline 11}{c +}{hline 110}{c +}{hline 10}
+     Total {c |}{res}         1          1          1          1          1          1          1          1          1          1 {txt}{c |}{res}        30 
+
+
+    {txt}1=made {c |}
+ playoffs, {c |}
+ 0=did not {c |}
+      make {c |}                                                     Team
+  playoffs {c |}   Oakland  Philade..  Pittsbu..  San Diego   San Fran    Seattle  St. Louis  Tampa Bay      Texas    Toronto {c |}     Total
+{hline 11}{c +}{hline 110}{c +}{hline 10}
+         0 {c |}{res}         1          1          1          0          1          1          1          1          0          1 {txt}{c |}{res}        22 
+{txt}         1 {c |}{res}         0          0          0          1          0          0          0          0          1          0 {txt}{c |}{res}         8 
+{txt}{hline 11}{c +}{hline 110}{c +}{hline 10}
+     Total {c |}{res}         1          1          1          1          1          1          1          1          1          1 {txt}{c |}{res}        30 
+
+{com}. tabulate playoffs 1 team
+{err}1 invalid name
+{txt}{search r(198), local:r(198);}
+
+{com}. tabulate playoffs team payroll, if(playoffs == 1)
+{err}too many variables specified
+{txt}{search r(103), local:r(103);}
+
+{com}. tabulate playoffs team, if(playoffs == 1)
+{err}option {bf:if()} not allowed
+{txt}{search r(198), local:r(198);}
+
+{com}. tabulate team payroll, if(playoffs == 1)
+{err}option {bf:if()} not allowed
+{txt}{search r(198), local:r(198);}
+
+{com}. gen playoffs_subset = (playoffs == 1)
+
+. tabulate team payroll if playoffs_subset == 1
+
+             {txt}{c |}                                   Payroll in dollars
+        Team {c |}     48294      50686   52996.17   56643.44      59347   61740.25   62155.37    73813.7 {c |}     Total
+{hline 13}{c +}{hline 88}{c +}{hline 10}
+     Atlanta {c |}{res}         0          0          0          0          0          1          0          0 {txt}{c |}{res}         1 
+{txt}      Boston {c |}{res}         0          0          0          0          1          0          0          0 {txt}{c |}{res}         1 
+{txt}    Chi Cubs {c |}{res}         0          1          0          0          0          0          0          0 {txt}{c |}{res}         1 
+{txt}   Cleveland {c |}{res}         0          0          0          1          0          0          0          0 {txt}{c |}{res}         1 
+{txt}     Houston {c |}{res}         1          0          0          0          0          0          0          0 {txt}{c |}{res}         1 
+{txt}  NY Yankees {c |}{res}         0          0          0          0          0          0          0          1 {txt}{c |}{res}         1 
+{txt}   San Diego {c |}{res}         0          0          1          0          0          0          0          0 {txt}{c |}{res}         1 
+{txt}       Texas {c |}{res}         0          0          0          0          0          0          1          0 {txt}{c |}{res}         1 
+{txt}{hline 13}{c +}{hline 88}{c +}{hline 10}
+       Total {c |}{res}         1          1          1          1          1          1          1          1 {txt}{c |}{res}         8 
+
+{com}. gen playoffteampayroll = tabulate team payroll if playoffs_subset == 1
+{err}tabulate not found
+{txt}{search r(111), local:r(111);}
+
+{com}. tabulate team payroll if playoffs_subset == 1, generate(playoffteampayroll)
+{err}option {bf:generate()} not allowed
+{txt}{search r(198), local:r(198);}
+
+{com}. tabdisp team payroll, generate(playoffteampayroll) if playoffs_subset == 1
+{err}option {bf:generate()} not allowed
+{txt}{search r(198), local:r(198);}
+
+{com}. egen team_payroll_count = count(payroll) if playoffs_subset == 1, by(team)
+{txt}(22 missing values generated)
+
+{com}. tab team_payroll_count
+
+{txt}team_payrol {c |}
+    l_count {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          1 {c |}{res}          8      100.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}          8      100.00
+
+{com}.  mean tabulate team payroll if playoffs_subset == 1
+{err}variable {bf}tabulate{sf} not found
+{txt}{search r(111), local:r(111);}
+
+{com}.  tabulate mean team mean payroll if playoffs_subset == 1
+{err}variable {bf}mean{sf} not found
+{txt}{search r(111), local:r(111);}
+
+{com}. drop team_payroll_count
+
+. collapse (mean) mean_playoffpayroll = payroll if playoffs_subset == 1
+{res}
+{com}. display mean_playoffpayroll
+{res}58209.491
+
+{com}. collapse (mean) mean_noplayoffpayroll = payroll if playoffs_subset == 0
+{err}playoffs_subset not found
+{txt}{search r(111), local:r(111);}
+
+{com}. collapse (mean) mean_playoffpayroll = payroll if playoffs == 0
+{err}playoffs not found
+{txt}{search r(111), local:r(111);}
+
+{com}. gen playoffs_subset2 = (playoffs == 0)
+{err}playoffs not found
+{txt}{search r(111), local:r(111);}
+
+{com}. use baseballsalaries.dta
+
+. gen playoffs_subset2 = (playoffs == 0)
+
+. gen playoffs_subset = (playoffs == 1)
+
+.  collapse (mean) mean_playoffpayroll = payroll if playoffs_subset == 1
+{res}
+{com}. use baseballsalaries.dta
+
+. gen playoffs_subset = (playoffs == 1)
+
+. gen playoffs_subset2 = (playoffs == 0)
+
+. egen mean_playoffpayroll = mean(payroll), by(playoffs_subset) if playoffs_subset == 1
+{err}option {bf:if} not allowed
+{txt}{search r(198), local:r(198);}
+
+{com}. keep if playoffs_subset == 1
+{txt}(22 observations deleted)
+
+{com}. egen mean_payroll = mean(payroll)
+
+. list mean_payroll
+{txt}
+     {c TLC}{hline 10}{c TRC}
+     {c |} {res}mean_p~l {txt}{c |}
+     {c LT}{hline 10}{c RT}
+  1. {c |} {res}58209.49 {txt}{c |}
+  2. {c |} {res}58209.49 {txt}{c |}
+  3. {c |} {res}58209.49 {txt}{c |}
+  4. {c |} {res}58209.49 {txt}{c |}
+  5. {c |} {res}58209.49 {txt}{c |}
+     {c LT}{hline 10}{c RT}
+  6. {c |} {res}58209.49 {txt}{c |}
+  7. {c |} {res}58209.49 {txt}{c |}
+  8. {c |} {res}58209.49 {txt}{c |}
+     {c BLC}{hline 10}{c BRC}
+
+{com}. keep if playoffs_subset2 == 0
+{txt}(0 observations deleted)
+
+{com}. keep if playoffs_subset == 0
+{txt}(8 observations deleted)
+
+{com}. egen mean_noplayoffpayroll = mean(payroll)
+
+. list mean_noplayoffpayroll
+
+. display mean_noplayoffpayroll
+{res}58209.004
+
+{com}. drop mean_noplayoffpayroll
+
+. keep if playoffs_subset2 == 0
+{txt}(0 observations deleted)
+
+{com}. egen mean_noplayoffpayroll = mean(payroll)
+
+. list mean_noplayoffpayroll
+
+. display mean_noplayoffpayroll
+{res}58209.004
+
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/affoon/Stata Data/HW #2.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}22 Jan 2023, 02:12:36
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

@@ -1,0 +1,15 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/affoon/Stata Data/Homework 3 Log.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}30 Jan 2023, 17:21:23
+
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/affoon/Stata Data/Homework 3 Log.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}30 Jan 2023, 17:21:26
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

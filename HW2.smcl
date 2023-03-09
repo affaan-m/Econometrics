@@ -1,0 +1,160 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/affoon/Stata Data/HW2.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}22 Jan 2023, 02:12:45
+
+{com}. summarize payroll
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 5}payroll {c |}{res}          0
+
+{com}. use baseballsalaries.dta
+{err}no; dataset in memory has changed since last saved
+{txt}{search r(4), local:r(4);}
+
+{com}. summarize payroll
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 5}payroll {c |}{res}          0
+
+{com}. display payroll
+{res}73813.698
+
+{com}. list payroll
+
+. payroll
+{err}command {bf}payroll{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+{com}. use baseballsalaries.dta, clear
+
+. summarize payroll
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 5}payroll {c |}{res}         30    42170.28    17830.28     8317.5   73995.92
+
+{com}. summarize payroll, detail
+
+                     {txt}Payroll in dollars
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}   8317.5         8317.5
+{txt} 5%    {res}    13695          13695
+{txt}10%    {res} 18863.06       18585.11       {txt}Obs         {res}         30
+{txt}25%    {res}    27620          19141       {txt}Sum of wgt. {res}         30
+
+{txt}50%    {res} 46171.98                      {txt}Mean          {res} 42170.28
+                        {txt}Largest       Std. dev.     {res} 17830.28
+{txt}75%    {res} 56643.44       61740.25
+{txt}90%    {res} 61947.81       62155.37       {txt}Variance      {res} 3.18e+08
+{txt}95%    {res}  73813.7        73813.7       {txt}Skewness      {res}-.0962934
+{txt}99%    {res} 73995.92       73995.92       {txt}Kurtosis      {res} 2.063183
+
+{com}. gen win_percent = wins/(wins+losses)
+
+. mean win_percent
+{res}
+{txt}Mean estimation{col 45}{lalign 13:Number of obs}{col 58} = {res}{ralign 2:30}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 1}win_percent {c |}{col 14}{res}{space 2} .4999632{col 26}{space 2} .0152035{col 37}{space 5} .4688686{col 51}{space 3} .5310578
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+
+{com}. graph twoway scatter win_percent payroll, xlabel(Winning Percentage) ylabel(Payroll)
+{err}invalid label specifier, :  Winning Percentage:
+{txt}{search r(198), local:r(198);}
+
+{com}. graph twoway scatter win_percent payroll, xlabel(Winning_Percentage) ylabel(Payroll)
+{err}invalid label specifier, :  Winning_Percentage:
+{txt}{search r(198), local:r(198);}
+
+{com}. graph twoway scatter win_percent payroll
+{res}
+{com}. graph export "/Users/affoon/Stata Data/Graph.jpg", as(jpg) name("Graph") quality(100)
+{txt}{p 0 4 2}
+file {bf}
+/Users/affoon/Stata Data/Graph.jpg{rm}
+saved as
+JPG
+format
+{p_end}
+
+{com}. ttest payroll if playoffs == 1, by(playoffs)
+{err}1 group found, 2 required
+{txt}{search r(420), local:r(420);}
+
+{com}. summarize payroll if playoffs == 1
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 5}payroll {c |}{res}          8    58209.49    8083.251      48294    73813.7
+
+{com}. summarize payroll if playoffs == 0
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 5}payroll {c |}{res}         22    36337.84    16840.77     8317.5   73995.92
+
+{com}. ttest payroll if playoffs == 1 == payroll if playoffs == 0
+{err}invalid syntax
+{txt}{search r(198), local:r(198);}
+
+{com}. ttest payroll if playoffs == 1, by(playoffs)
+{err}1 group found, 2 required
+{txt}{search r(420), local:r(420);}
+
+{com}. ttest mean_playoff_teams - mean_non_playoff_teams, ttail(1)
+{err}variable {bf}mean_playoff_teams{sf} not found
+{txt}{search r(111), local:r(111);}
+
+{com}. gen mean_playoff_teams = 58209.49
+
+. gen mean_non_playoff_teams = 36337.84
+
+. ttest mean_playoff_teams - mean_non_playoff_teams, ttail(1)
+{err}too many variables specified
+{txt}{search r(103), local:r(103);}
+
+{com}. ttest mean_playoff_teams - mean_non_playoff_teams, ttail(1)
+{err}too many variables specified
+{txt}{search r(103), local:r(103);}
+
+{com}. ttest payroll if playoffs == 1, by(playoffs)
+{err}1 group found, 2 required
+{txt}{search r(420), local:r(420);}
+
+{com}. keep if playoffs == 1
+{txt}(22 observations deleted)
+
+{com}. gen payroll_playoff = payroll
+
+. drop payroll
+
+. keep if playoffs == 0
+{txt}(8 observations deleted)
+
+{com}. gen payroll_nonplayoff = payroll
+
+. drop payroll
+{bf}{err}payroll{sf} ambiguous abbreviation
+{txt}{search r(111), local:r(111);}
+
+{com}. ttest payroll_playoff, payload_nonplayoff
+{err}option {bf:payload_nonplayoff} not allowed
+{txt}{search r(198), local:r(198);}
+
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/affoon/Stata Data/HW2.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}22 Jan 2023, 04:10:30
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
